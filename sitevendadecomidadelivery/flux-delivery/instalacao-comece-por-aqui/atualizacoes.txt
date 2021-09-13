@@ -1,0 +1,47 @@
+ #ATUALIZAÇÕES DO SISTEMA
+
+ #PARA ATUALIZAR O SISTEMA PARA SE ADEQUAR AS NOVAS MUDANÇAS.
+ #RODAR OS COMANDOS ABAIXO EM SEU BANCO DE DADOS (SQL)
+
+ #SE FOR INSTALAR DO ZERO NÃO PRECISA RODAR OS COMANDOS ABAIXO
+
+ALTER TABLE config ADD config_endereco varchar(255) DEFAULT NULL  NULL;
+ALTER TABLE config ADD config_retirada int(2) DEFAULT 1 NULL;
+ALTER TABLE item ADD item_ativo int(2) DEFAULT 1 NULL;
+ALTER TABLE categoria ADD categoria_ativa int(2) DEFAULT 1 NULL;
+  
+
+# modulo de pagamento
+
+CREATE TABLE `pagamento` (
+  `pagamento_id` int(11) NOT NULL,
+  `pagamento_gw` varchar(200) DEFAULT 'SANDBOX',
+  `pagamento_usuario` varchar(255) DEFAULT NULL,
+  `pagamento_senha` varchar(255) DEFAULT NULL,
+  `pagamento_retorno` longtext,
+  `pagamento_status` int(11) DEFAULT '1' COMMENT '1 = ativado\n0 = desativado'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `pagamento` (`pagamento_id`, `pagamento_gw`, `pagamento_usuario`, `pagamento_senha`, `pagamento_retorno`, `pagamento_status`) VALUES
+(1, 'SANDBOX', 'orlando.eal_@hotmail.com', '4F30D655DFD64FAA85DA33F663D0B7E9', 'fdsaa', 1);
+
+ALTER TABLE `pagamento`
+  ADD PRIMARY KEY (`pagamento_id`);
+
+ALTER TABLE `pagamento`
+  MODIFY `pagamento_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+
+
+# Cupom de desconto
+
+ CREATE TABLE cupom
+ (
+     cupom_id int PRIMARY KEY AUTO_INCREMENT,
+     cupom_nome varchar(50) DEFAULT NULL ,
+     cupom_validade date DEFAULT NULL ,
+     cupom_valor double DEFAULT NULL ,
+     cupom_percent int(4) DEFAULT NULL ,
+     cupom_tipo int DEFAULT 1 COMMENT '1 = valor
+ 2 = percent'
+ );
